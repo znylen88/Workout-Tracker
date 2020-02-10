@@ -1,7 +1,7 @@
 # Workout-Tracker
 A simple fitness tracking app that allows users to log their workouts.
 
-## App Homepage:
+## App Homepage
 
 ![App Function](https://github.com/znylen88/Workout-Tracker/blob/master/Fitness-Tracker.png)
 
@@ -17,7 +17,7 @@ The user should be able to:
 
   * View multiple the combined weight of multiple exercises on the "stats" page.
   
-  ## Fitness Chart Page:
+  ## Fitness Chart Page
   
   ![App Function](https://github.com/znylen88/Workout-Tracker/blob/master/Fitness-Stats.png)
 

@@ -16,4 +16,8 @@ The user should be able to:
   * Add new exercises to a new workout plan.
 
   * View multiple the combined weight of multiple exercises on the "stats" page.
+  
+  ## Fitness Chart Page:
+  
+  ![App Function](https://github.com/znylen88/Workout-Tracker/blob/master/Fitness-Stats.png)
 

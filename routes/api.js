@@ -33,7 +33,7 @@ router.post("/api/workouts", function (req, res) {
 
 router.put("/api/workouts/:id", (req, res) => {
     if (req.body.type === "cardio") {
-        db.Workout.findOneAndUpdate(
+        Workout.findOneAndUpdate(
             {
                 _id: mongojs.ObjectId(req.params.id)
             },

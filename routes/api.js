@@ -1,88 +1,69 @@
-const mongojs = require("mongojs");
+const router = require("express").Router();
 const Workout = require("../models/workout.js");
-var db = require("../models");
 
-module.exports = function (app) {
+router.post("/api/workouts", ({ body }, res) => {
+    console.log(body)
+    var workout = {
+        exercises:
+        {
+            type: body.type,
+            name: body.name,
+            duration: body.duration,
+            weight: body.weight,
+            reps: body.reps,
+            sets: body.sets,
+            distance: body.distance
+        },
 
-    app.get("/api/workouts", (req, res) => {
-        db.Workout.find({})
-            .then(dbWorkout => {
-                res.json(dbWorkout);
-            })
-            .catch(err => {
-                res.status(400).json(err);
-            });
-    });
-
-    app.get("/api/workouts/range", (req, res) => {
-        db.Workout.find({})
-            .then(dbWorkout => {
-                res.json(dbWorkout);
-            })
-            .catch(err => {
-                res.json(err);
-            });
-    });
-
-    app.post("/api/workouts", function (req, res) {
-        const workout = new Workout();
-        workout.day = new Date().setDate(new Date().getDate());
-        Workout.create(workout)
-            .then(dbWorkout => {
-                res.json(dbWorkout)
-            })
-    });
-
-    app.put("/api/workouts/:id", (req, res) => {
-        if (req.body.type === "cardio") {
-            db.Workout.findOneAndUpdate(
-                {
-                    _id: mongojs.ObjectId(req.params.id)
-                },
-                {
-                    $push: {
-                        exercises: {
-                            type: req.body.type,
-                            name: req.body.name,
-                            duration: req.body.duration,
-                            distance: req.body.distance
-                        }
-                    }
-                }
-            )
-                .then(dbWorkout => {
-                    res.json(dbWorkout);
-                })
-                .catch(err => {
-                    res.json(err);
-                });
+    }
+    Workout.create(workout, (err, result) => {
+        if (err) {
+            console.log(err)
         }
-        if (req.body.type === "resistance") {
-            db.Workout.findOneAndUpdate(
-                {
-                    _id: mongojs.ObjectId(req.params.id)
-                },
-                {
-                    $push: {
-                        exercises: {
-                            type: req.body.type,
-                            name: req.body.name,
-                            duration: req.body.duration,
-                            weight: req.body.weight,
-                            reps: req.body.reps,
-                            sets: req.body.sets
-                        }
-                    }
-                }
-            )
-                .then(dbWorkout => {
-                    res.json(dbWorkout);
-                })
-                .catch(err => {
-                    res.json(err);
-                });
-        }
+        console.log(result)
     })
-};
+        .then(dbWorkout => {
+            console.log(dbWorkout)
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
 
+router.put("/api/workouts/:id", (req, res) => {
+    var exercise = req.body;
+    Workout.findByIdAndUpdate(req.params.id, {
+        $push: { exercises: exercise }
+    }, { new: true })
+        .then(function (dbWorkout) {
+            res.json(dbWorkout);
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
 
+router.get("/api/workouts", (req, res) => {
+    console.log("Getting exercise info")
+    Workout.find({})
+        .then(dbWorkout => {
+            res.json(dbWorkout)
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+router.get("/api/workouts/range", (req, res) => {
+    console.log("Getting exercise info")
+    Workout.find({})
+        .then(dbWorkout => {
+            res.json(dbWorkout)
+        })
+        .catch(err => {
+            res.status(400).json(err);
+        });
+});
+
+module.exports = router;

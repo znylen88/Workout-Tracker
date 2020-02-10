@@ -35,3 +35,7 @@ Fitness tracker is an app that allows users to log their workouts and save them 
 
 5. If the user clicks on the dashboard link, they will be taken to the fitness chart page where they can see their previous workouts rendered out into organized charts based on excercise name and duration and weight when applicable. 
 
+## Deployed App
+
+https://vast-ravine-96169.herokuapp.com/
+
